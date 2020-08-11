@@ -1,0 +1,28 @@
+version: '3.0'
+services:
+  php:
+    image: faqqcn/php-swoole-sdebug:1.0
+    stdin_open: true # docker run -i
+    tty: true
+    ports:
+      - 8080:9501
+    volumes:
+      - D:/www:/mnt/d/htdocs
+
+  mysql:
+    image: mysql:latest
+    ports:
+      - 3306:3306
+    volumes:
+      - D:/www/redis/mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+
+  redis:
+    image: redis:latest
+    ports:
+      - 6379:6379
+    volumes:
+      - D:/www/redis/redis.conf:/usr/local/etc/redis.conf
+      - D:/www/redis/data:/usr/local/redis/data
+      - D:/www/redis/log:/usr/local/redis/redis.log
