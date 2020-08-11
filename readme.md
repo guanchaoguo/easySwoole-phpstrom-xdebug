@@ -16,4 +16,6 @@
       主界面那个运行| run|debugger | edit| php_remote_debug|./docker-compose.yml
       进入容器  export PHP_IDE_CONFIG=serverName=XDEBUG_02
        Chrome 扩展 Xdebuge Helper | XDEBUG_SESSION=PHPSTORM |  debugkey=PHPSTORM
+
+      # easyswoole 必须关闭短名称  
 `
