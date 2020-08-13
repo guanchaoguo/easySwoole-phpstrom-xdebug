@@ -80,7 +80,7 @@ RUN cd /tmp \
 RUN cd /usr/local/etc/php/conf.d \
     # swoole config
     # 关闭 swoole 短名称，使用 Hyperf 这个是必须要
-    && echo "swoole.use_shortname = off" >> 99-off-swoole-shortname.ini \
+    && echo "swoole.use_shortname = On" >> 99-off-swoole-shortname.ini \
     # config xdebug
     && { \
         # 添加一个 Xdebug 节点
@@ -115,6 +115,12 @@ RUN cd /tmp \
     && php --ri redis
 
 
+#  install ab  Benchmark
+RUN apk --no-cache add apache2-utils
+
+#  install curl
+RUN apk --no-cache add curl
+
 # check
 # 检查一下 PHP 版本信息和 已安装的模块
 RUN cd /tmp \
@@ -124,14 +130,11 @@ RUN cd /tmp \
     && php -m \
     && echo -e "Build Completed!"
 
-# xdebug
-RUN  export PHP_IDE_CONFIG=serverName=XDEBUG_02
-
 # 暴露 9501 端口
 EXPOSE 9501
 # 设置工作目录，即默认登录目录，这个目录现在并不存在，
 # 我们需要在 run 时把我们外部 windows 的文件目录映射到 docker 容器中去
 WORKDIR /mnt/d/htdocs
 
-# apk add –no-cache redis
-# docker run -di -p 8080:9501 -v D:/www:/mnt/d/htdocs --name php-swoole-sdebug faqqcn/php-swoole-sdebug:1.0
+
+# export PHP_IDE_CONFIG=serverName=XDEBUG_02
